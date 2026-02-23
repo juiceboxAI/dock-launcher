@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain, shell, screen } = require('electron');
 const path = require('path');
 const { exec } = require('child_process');
 const fs = require('fs');
+const AutoLaunch = require('auto-launch');
 
 const CONFIG_PATH = path.join(__dirname, 'dock-config.json');
 const COLLAPSED_SIZE = 48;
@@ -110,5 +111,16 @@ ipcMain.handle('extract-icon', async (event, filePath) => {
   });
 });
 
-app.whenReady().then(createWindow);
+const autoLauncher = new AutoLaunch({
+  name: 'DockLauncher',
+  path: app.getPath('exe')
+});
+
+app.whenReady().then(async () => {
+  createWindow();
+  const isEnabled = await autoLauncher.isEnabled();
+  if (!isEnabled) {
+    autoLauncher.enable();
+  }
+});
 app.on('window-all-closed', () => app.quit());

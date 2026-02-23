@@ -11,5 +11,8 @@
   "devDependencies": {
     "electron": "^40.6.0",
     "vitest": "^4.0.18"
+  },
+  "dependencies": {
+    "auto-launch": "^5.0.6"
   }
 }
