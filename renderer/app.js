@@ -36,8 +36,13 @@ function renderCategories() {
     const iconBtn = document.createElement('div');
     iconBtn.className = 'category-icon';
     iconBtn.textContent = cat.icon;
-    iconBtn.title = cat.name;
     iconBtn.addEventListener('click', () => toggleCategory(index));
+
+    // Category hover label
+    const catTooltip = document.createElement('span');
+    catTooltip.className = 'category-tooltip';
+    catTooltip.textContent = cat.name;
+    iconBtn.appendChild(catTooltip);
 
     const itemsContainer = document.createElement('div');
     itemsContainer.className = 'category-items';
@@ -172,7 +177,8 @@ function recalcWindowSize() {
   }
 
   const categoryCount = config.categories.length;
-  const height = COLLAPSED_SIZE + GAP + (categoryCount * (CELL_SIZE + GAP));
+  const TOOLTIP_SPACE = 28;
+  const height = COLLAPSED_SIZE + GAP + (categoryCount * (CELL_SIZE + GAP)) + TOOLTIP_SPACE;
 
   let maxWidth = COLLAPSED_SIZE;
   if (activeCategory !== null) {

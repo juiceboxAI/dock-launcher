@@ -1,0 +1,48 @@
+{
+  "dockIcon": "assets/dock-icon.svg",
+  "position": { "x": 100, "y": 300 },
+  "categories": [
+    {
+      "name": "Tools",
+      "icon": "\uD83D\uDD27",
+      "items": [
+        {
+          "name": "VS Code",
+          "type": "exe",
+          "path": "C:\\Path\\To\\Code.exe",
+          "icon": "auto"
+        },
+        {
+          "name": "Terminal",
+          "type": "shell",
+          "path": "wt --profile \"Default\"",
+          "icon": "assets/terminal.png"
+        }
+      ]
+    },
+    {
+      "name": "Bookmarks",
+      "icon": "\uD83C\uDF10",
+      "items": [
+        {
+          "name": "GitHub",
+          "type": "url",
+          "path": "https://github.com",
+          "icon": "auto"
+        }
+      ]
+    },
+    {
+      "name": "Projects",
+      "icon": "\uD83D\uDCC1",
+      "items": [
+        {
+          "name": "My Project",
+          "type": "folder",
+          "path": "C:\\Projects\\my-project",
+          "icon": "auto"
+        }
+      ]
+    }
+  ]
+}
