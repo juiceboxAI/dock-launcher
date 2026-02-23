@@ -2,6 +2,7 @@
   "name": "dock-launcher",
   "version": "0.1.0",
   "description": "Lightweight floating desktop dock for Windows",
+  "type": "module",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
