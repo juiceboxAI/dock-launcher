@@ -245,3 +245,10 @@ function updateDragRegion() {
 }
 
 init();
+
+// Collapse dock when window loses focus (click outside)
+window.addEventListener('blur', () => {
+  if (expanded) {
+    toggleExpand();
+  }
+});

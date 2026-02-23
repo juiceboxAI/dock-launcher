@@ -32,6 +32,13 @@ function createWindow() {
 
   mainWindow.loadFile('renderer/index.html');
   mainWindow.setVisibleOnAllWorkspaces(true);
+
+  // Clamp window position to screen bounds
+  const { width: sw, height: sh } = screen.getPrimaryDisplay().workAreaSize;
+  const [wx, wy] = mainWindow.getPosition();
+  const clampedX = Math.min(Math.max(0, wx), sw - COLLAPSED_SIZE);
+  const clampedY = Math.min(Math.max(0, wy), sh - COLLAPSED_SIZE);
+  mainWindow.setPosition(clampedX, clampedY);
 }
 
 // IPC: resize window from renderer
