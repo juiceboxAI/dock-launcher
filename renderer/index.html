@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dock Launcher</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="dock">
+    <div id="dock-icon" class="dock-cell">
+      <img id="dock-icon-img" src="../assets/dock-icon.svg" alt="Dock"
+           onerror="this.style.display='none'; this.parentElement.textContent='⬡';">
+    </div>
+    <div id="categories"></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
