@@ -1,0 +1,132 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0f0a19;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  padding: 16px;
+}
+
+h1 {
+  font-size: 18px;
+  margin-bottom: 16px;
+  color: #9580FF;
+}
+
+.settings-container {
+  max-width: 460px;
+  margin: 0 auto;
+}
+
+.category-block {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.category-header input {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: white;
+  padding: 4px 8px;
+  font-size: 14px;
+  flex: 1;
+}
+
+.category-header .icon-input {
+  width: 40px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.category-header .delete-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 80, 80, 0.7);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+}
+
+.category-header .delete-btn:hover {
+  color: #ff5050;
+}
+
+.item-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.item-row input {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  color: white;
+  padding: 3px 6px;
+  font-size: 12px;
+}
+
+.item-row .item-name { width: 100px; }
+.item-row .item-type { width: 60px; }
+.item-row .item-path { flex: 1; }
+.item-row .item-icon { width: 80px; }
+
+.item-row select {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  color: white;
+  padding: 3px 4px;
+  font-size: 12px;
+}
+
+.item-row .delete-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 80, 80, 0.5);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn {
+  background: rgba(123, 104, 238, 0.2);
+  border: 1px solid rgba(123, 104, 238, 0.4);
+  color: #9580FF;
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.btn:hover {
+  background: rgba(123, 104, 238, 0.3);
+}
+
+.btn-small {
+  font-size: 11px;
+  padding: 3px 8px;
+}
+
+.actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+}
