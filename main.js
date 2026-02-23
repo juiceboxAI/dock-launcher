@@ -48,6 +48,13 @@ ipcMain.on('resize-window', (event, { width, height }) => {
   }
 });
 
+// IPC: move window position (for manual drag)
+ipcMain.on('move-window', (event, { x, y }) => {
+  if (mainWindow) {
+    mainWindow.setPosition(Math.round(x), Math.round(y));
+  }
+});
+
 // IPC: launch a shortcut
 ipcMain.on('launch', (event, { action, target }) => {
   switch (action) {

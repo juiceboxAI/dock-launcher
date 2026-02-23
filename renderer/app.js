@@ -21,7 +21,6 @@ async function init() {
     activeCategory = null;
     renderCategories();
     recalcWindowSize();
-    updateDragRegion();
   });
 }
 
@@ -136,8 +135,6 @@ function toggleExpand() {
     activeCategory = null;
   }
 
-  updateDragRegion();
-
   requestAnimationFrame(() => {
     requestAnimationFrame(() => recalcWindowSize());
   });
@@ -190,22 +187,26 @@ function recalcWindowSize() {
 
 function setupDockIcon() {
   const dockIcon = document.getElementById('dock-icon');
+  let startX, startY, winStartX, winStartY;
 
   dockIcon.addEventListener('mousedown', (e) => {
-    if (expanded) {
-      // When expanded, just toggle on click (no drag)
-      return;
-    }
     if (e.button !== 0) return;
+
     isDragging = false;
-    dragOffset.x = e.screenX;
-    dragOffset.y = e.screenY;
+    startX = e.screenX;
+    startY = e.screenY;
+    // Store window position at drag start
+    winStartX = window.screenX;
+    winStartY = window.screenY;
 
     const onMouseMove = (moveEvent) => {
-      const dx = moveEvent.screenX - dragOffset.x;
-      const dy = moveEvent.screenY - dragOffset.y;
-      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+      const dx = moveEvent.screenX - startX;
+      const dy = moveEvent.screenY - startY;
+      if (!isDragging && (Math.abs(dx) > 3 || Math.abs(dy) > 3)) {
         isDragging = true;
+      }
+      if (isDragging && !expanded) {
+        window.dock.moveWindow(winStartX + dx, winStartY + dy);
       }
     };
 
@@ -222,26 +223,10 @@ function setupDockIcon() {
     document.addEventListener('mouseup', onMouseUp);
   });
 
-  // When expanded, click dock icon to collapse
-  dockIcon.addEventListener('click', (e) => {
-    if (expanded) {
-      toggleExpand();
-    }
-  });
-
   dockIcon.addEventListener('contextmenu', (e) => {
     e.preventDefault();
     window.dock.openSettings();
   });
-}
-
-function updateDragRegion() {
-  const dockIcon = document.getElementById('dock-icon');
-  if (!expanded) {
-    dockIcon.style.webkitAppRegion = 'drag';
-  } else {
-    dockIcon.style.webkitAppRegion = 'no-drag';
-  }
 }
 
 init();
