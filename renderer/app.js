@@ -14,6 +14,15 @@ async function init() {
   config = await window.dock.loadConfig();
   renderCategories();
   setupDockIcon();
+
+  window.dock.onConfigUpdated(async () => {
+    config = await window.dock.loadConfig();
+    expanded = false;
+    activeCategory = null;
+    renderCategories();
+    recalcWindowSize();
+    updateDragRegion();
+  });
 }
 
 function renderCategories() {

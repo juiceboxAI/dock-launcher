@@ -68,6 +68,10 @@ ipcMain.handle('load-config', () => {
 // IPC: save config
 ipcMain.handle('save-config', (event, config) => {
   fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2));
+  // Notify main dock window to reload config
+  if (mainWindow) {
+    mainWindow.webContents.send('config-updated');
+  }
 });
 
 // IPC: open settings window
