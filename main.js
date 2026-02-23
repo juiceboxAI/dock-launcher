@@ -93,9 +93,21 @@ ipcMain.on('open-settings', () => {
 });
 
 // IPC: get icon for exe (returns base64 data URL or null)
-ipcMain.handle('extract-icon', async (event, exePath) => {
-  // Placeholder — Task 8 will implement real icon extraction
-  return null;
+ipcMain.handle('extract-icon', async (event, filePath) => {
+  return new Promise((resolve) => {
+    const escapedPath = filePath.replace(/'/g, "''");
+    const ps = `Add-Type -AssemblyName System.Drawing; $icon = [System.Drawing.Icon]::ExtractAssociatedIcon('${escapedPath}'); if ($icon) { $bmp = $icon.ToBitmap(); $ms = New-Object System.IO.MemoryStream; $bmp.Save($ms, [System.Drawing.Imaging.ImageFormat]::Png); [Convert]::ToBase64String($ms.ToArray()) }`;
+    exec(`powershell.exe -NoProfile -Command "${ps}"`,
+      { maxBuffer: 1024 * 1024 },
+      (err, stdout) => {
+        if (err || !stdout.trim()) {
+          resolve(null);
+          return;
+        }
+        resolve('data:image/png;base64,' + stdout.trim());
+      }
+    );
+  });
 });
 
 app.whenReady().then(createWindow);

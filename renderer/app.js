@@ -74,6 +74,20 @@ function createShortcutTile(item) {
     tile.insertBefore(fallback, tooltip);
   }
 
+  // Try to extract icon for exe/lnk with auto
+  if ((!item.icon || item.icon === 'auto') && (item.type === 'exe' || item.type === 'lnk')) {
+    window.dock.extractIcon(item.path).then(dataUrl => {
+      if (dataUrl) {
+        const img = document.createElement('img');
+        img.src = dataUrl;
+        img.alt = item.name;
+        tile.insertBefore(img, tooltip);
+        const fallback = tile.querySelector('.fallback-icon');
+        if (fallback) fallback.remove();
+      }
+    });
+  }
+
   tile.addEventListener('click', (e) => {
     e.stopPropagation();
     launchItem(item);
