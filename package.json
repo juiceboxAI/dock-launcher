@@ -1,0 +1,15 @@
+{
+  "name": "dock-launcher",
+  "version": "0.1.0",
+  "description": "Lightweight floating desktop dock for Windows",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "electron": "^40.6.0",
+    "vitest": "^4.0.18"
+  }
+}

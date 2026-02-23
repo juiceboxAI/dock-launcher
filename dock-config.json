@@ -1,0 +1,48 @@
+{
+  "dockIcon": "assets/dock-icon.png",
+  "position": { "x": 100, "y": 300 },
+  "categories": [
+    {
+      "name": "Tools",
+      "icon": "🔧",
+      "items": [
+        {
+          "name": "Claude",
+          "type": "shell",
+          "path": "wt --profile \"Claude\"",
+          "icon": "E:\\ClaudeDev\\claude_launcher.ico"
+        },
+        {
+          "name": "VS Code",
+          "type": "exe",
+          "path": "C:\\Users\\bigju\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+          "icon": "auto"
+        }
+      ]
+    },
+    {
+      "name": "Games",
+      "icon": "🎮",
+      "items": [
+        {
+          "name": "Steam",
+          "type": "url",
+          "path": "steam://open/games",
+          "icon": "assets/steam.png"
+        }
+      ]
+    },
+    {
+      "name": "GenAI",
+      "icon": "🎨",
+      "items": [
+        {
+          "name": "ComfyUI",
+          "type": "folder",
+          "path": "E:\\GenAI\\comfyUI_windows_portable",
+          "icon": "auto"
+        }
+      ]
+    }
+  ]
+}
