@@ -87,9 +87,10 @@ h1 {
 
 .item-row {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 6px;
-  padding: 4px 0;
+  gap: 4px;
+  padding: 6px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
@@ -100,12 +101,13 @@ h1 {
   color: white;
   padding: 3px 6px;
   font-size: 12px;
+  min-width: 0;
 }
 
-.item-row .item-name { width: 100px; }
-.item-row .item-type { width: 60px; }
-.item-row .item-path { flex: 1; }
-.item-row .item-icon { width: 80px; }
+.item-row .item-name { width: 80px; }
+.item-row .item-type { width: 50px; }
+.item-row .item-path { flex: 1 1 100%; font-size: 11px; }
+.item-row .item-icon { flex: 1 1 100%; font-size: 11px; }
 
 .item-row select {
   background: #1a1025;
