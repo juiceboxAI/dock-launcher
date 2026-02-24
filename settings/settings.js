@@ -1,4 +1,5 @@
 let config = null;
+let saveTimeout = null;
 
 async function init() {
   config = await window.dock.loadConfig();
@@ -22,7 +23,7 @@ function render() {
     iconInput.value = cat.icon;
     iconInput.addEventListener('change', () => {
       config.categories[catIndex].icon = iconInput.value;
-      save();
+      debouncedSave();
     });
 
     const nameInput = document.createElement('input');
@@ -30,7 +31,7 @@ function render() {
     nameInput.placeholder = 'Category name';
     nameInput.addEventListener('change', () => {
       config.categories[catIndex].name = nameInput.value;
-      save();
+      debouncedSave();
     });
 
     const deleteBtn = document.createElement('button');
@@ -38,7 +39,7 @@ function render() {
     deleteBtn.textContent = '\u2715';
     deleteBtn.addEventListener('click', () => {
       config.categories.splice(catIndex, 1);
-      save();
+      debouncedSave();
       render();
     });
 
@@ -61,7 +62,7 @@ function render() {
         path: '',
         icon: 'auto'
       });
-      save();
+      debouncedSave();
       render();
     });
     block.appendChild(addBtn);
@@ -79,7 +80,7 @@ function createItemRow(catIndex, itemIndex, item) {
   nameInput.value = item.name;
   nameInput.addEventListener('change', () => {
     config.categories[catIndex].items[itemIndex].name = nameInput.value;
-    save();
+    debouncedSave();
   });
 
   const typeSelect = document.createElement('select');
@@ -93,7 +94,7 @@ function createItemRow(catIndex, itemIndex, item) {
   });
   typeSelect.addEventListener('change', () => {
     config.categories[catIndex].items[itemIndex].type = typeSelect.value;
-    save();
+    debouncedSave();
   });
 
   const pathInput = document.createElement('input');
@@ -102,7 +103,7 @@ function createItemRow(catIndex, itemIndex, item) {
   pathInput.placeholder = 'Path / URL / command';
   pathInput.addEventListener('change', () => {
     config.categories[catIndex].items[itemIndex].path = pathInput.value;
-    save();
+    debouncedSave();
   });
 
   const iconInput = document.createElement('input');
@@ -111,7 +112,7 @@ function createItemRow(catIndex, itemIndex, item) {
   iconInput.placeholder = 'Icon path';
   iconInput.addEventListener('change', () => {
     config.categories[catIndex].items[itemIndex].icon = iconInput.value;
-    save();
+    debouncedSave();
   });
 
   const deleteBtn = document.createElement('button');
@@ -119,7 +120,7 @@ function createItemRow(catIndex, itemIndex, item) {
   deleteBtn.textContent = '\u2715';
   deleteBtn.addEventListener('click', () => {
     config.categories[catIndex].items.splice(itemIndex, 1);
-    save();
+    debouncedSave();
     render();
   });
 
@@ -138,12 +139,15 @@ function addCategory() {
     icon: '\uD83D\uDCC1',
     items: []
   });
-  save();
+  debouncedSave();
   render();
 }
 
-async function save() {
-  await window.dock.saveConfig(config);
+function debouncedSave() {
+  clearTimeout(saveTimeout);
+  saveTimeout = setTimeout(() => {
+    window.dock.saveConfig(config);
+  }, 300);
 }
 
 init();
