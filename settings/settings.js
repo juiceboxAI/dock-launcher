@@ -71,6 +71,17 @@ function render() {
       render();
     });
 
+    const collapseBtn = document.createElement('button');
+    collapseBtn.className = 'collapse-btn';
+    collapseBtn.textContent = '\u25BC';
+    collapseBtn.title = 'Toggle items';
+    collapseBtn.addEventListener('click', () => {
+      const body = block.querySelector('.category-body');
+      const isOpen = body.classList.toggle('open');
+      collapseBtn.textContent = isOpen ? '\u25BC' : '\u25B6';
+    });
+
+    header.appendChild(collapseBtn);
     header.appendChild(iconInput);
     header.appendChild(nameInput);
     header.appendChild(moveUpBtn);
@@ -78,8 +89,11 @@ function render() {
     header.appendChild(deleteBtn);
     block.appendChild(header);
 
+    const body = document.createElement('div');
+    body.className = 'category-body open';
+
     cat.items.forEach((item, itemIndex) => {
-      block.appendChild(createItemRow(catIndex, itemIndex, item));
+      body.appendChild(createItemRow(catIndex, itemIndex, item));
     });
 
     const addBtn = document.createElement('button');
@@ -95,7 +109,8 @@ function render() {
       debouncedSave();
       render();
     });
-    block.appendChild(addBtn);
+    body.appendChild(addBtn);
+    block.appendChild(body);
 
     container.appendChild(block);
   });

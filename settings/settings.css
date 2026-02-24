@@ -34,7 +34,35 @@ h1 {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 8px;
+}
+
+.category-body {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.25s ease, opacity 0.2s ease, margin 0.2s ease;
+  margin-top: 0;
+}
+
+.category-body.open {
+  max-height: 2000px;
+  opacity: 1;
+  margin-top: 8px;
+}
+
+.collapse-btn {
+  background: none;
+  border: none;
+  color: rgba(149, 128, 255, 0.7);
+  cursor: pointer;
+  font-size: 11px;
+  padding: 2px 4px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.collapse-btn:hover {
+  color: #9580FF;
 }
 
 .category-header input {
