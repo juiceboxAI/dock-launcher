@@ -145,6 +145,34 @@ function createItemRow(catIndex, itemIndex, item) {
     debouncedSave();
   });
 
+  const items = config.categories[catIndex].items;
+
+  const moveUpBtn = document.createElement('button');
+  moveUpBtn.className = 'move-btn';
+  moveUpBtn.textContent = '\u25B2';
+  moveUpBtn.title = 'Move up';
+  moveUpBtn.disabled = itemIndex === 0;
+  moveUpBtn.addEventListener('click', () => {
+    if (itemIndex > 0) {
+      [items[itemIndex - 1], items[itemIndex]] = [items[itemIndex], items[itemIndex - 1]];
+      debouncedSave();
+      render();
+    }
+  });
+
+  const moveDownBtn = document.createElement('button');
+  moveDownBtn.className = 'move-btn';
+  moveDownBtn.textContent = '\u25BC';
+  moveDownBtn.title = 'Move down';
+  moveDownBtn.disabled = itemIndex === items.length - 1;
+  moveDownBtn.addEventListener('click', () => {
+    if (itemIndex < items.length - 1) {
+      [items[itemIndex], items[itemIndex + 1]] = [items[itemIndex + 1], items[itemIndex]];
+      debouncedSave();
+      render();
+    }
+  });
+
   const deleteBtn = document.createElement('button');
   deleteBtn.className = 'delete-btn';
   deleteBtn.textContent = '\u2715';
@@ -158,6 +186,8 @@ function createItemRow(catIndex, itemIndex, item) {
   row.appendChild(typeSelect);
   row.appendChild(pathInput);
   row.appendChild(iconInput);
+  row.appendChild(moveUpBtn);
+  row.appendChild(moveDownBtn);
   row.appendChild(deleteBtn);
 
   return row;

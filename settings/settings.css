@@ -121,6 +121,25 @@ h1 {
   color: white;
 }
 
+.item-row .move-btn {
+  background: none;
+  border: none;
+  color: rgba(149, 128, 255, 0.5);
+  cursor: pointer;
+  font-size: 10px;
+  padding: 1px 3px;
+  line-height: 1;
+}
+
+.item-row .move-btn:hover:not(:disabled) {
+  color: #9580FF;
+}
+
+.item-row .move-btn:disabled {
+  color: rgba(255, 255, 255, 0.1);
+  cursor: default;
+}
+
 .item-row .delete-btn {
   background: none;
   border: none;
