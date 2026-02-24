@@ -238,8 +238,18 @@ function setupDockIcon() {
 init();
 
 // Collapse dock when window loses focus (click outside)
+// Debounce to avoid race with resize-triggered blur events
+let blurTimeout = null;
 window.addEventListener('blur', () => {
   if (expanded) {
-    toggleExpand();
+    clearTimeout(blurTimeout);
+    blurTimeout = setTimeout(() => {
+      if (expanded && !document.hasFocus()) {
+        toggleExpand();
+      }
+    }, 150);
   }
+});
+window.addEventListener('focus', () => {
+  clearTimeout(blurTimeout);
 });

@@ -2,8 +2,6 @@ const { app, BrowserWindow, ipcMain, shell, screen } = require('electron');
 const path = require('path');
 const { exec } = require('child_process');
 const fs = require('fs');
-const AutoLaunch = require('auto-launch');
-
 const CONFIG_PATH = path.join(__dirname, 'dock-config.json');
 const COLLAPSED_SIZE = 48;
 
@@ -19,7 +17,7 @@ function createWindow() {
     y: 300,
     frame: false,
     transparent: true,
-    alwaysOnTop: true,
+    alwaysOnTop: false,
     skipTaskbar: true,
     resizable: false,
     hasShadow: false,
@@ -31,7 +29,6 @@ function createWindow() {
   });
 
   mainWindow.loadFile('renderer/index.html');
-  mainWindow.setVisibleOnAllWorkspaces(true);
 
   // Clamp window position to screen bounds
   const { width: sw, height: sh } = screen.getPrimaryDisplay().workAreaSize;
@@ -117,7 +114,7 @@ ipcMain.handle('extract-icon', async (event, filePath) => {
     const escapedPath = filePath.replace(/'/g, "''");
     const ps = `Add-Type -AssemblyName System.Drawing; $icon = [System.Drawing.Icon]::ExtractAssociatedIcon('${escapedPath}'); if ($icon) { $bmp = $icon.ToBitmap(); $ms = New-Object System.IO.MemoryStream; $bmp.Save($ms, [System.Drawing.Imaging.ImageFormat]::Png); [Convert]::ToBase64String($ms.ToArray()) }`;
     exec(`powershell.exe -NoProfile -Command "${ps}"`,
-      { maxBuffer: 1024 * 1024 },
+      { maxBuffer: 1024 * 1024, timeout: 5000 },
       (err, stdout) => {
         if (err || !stdout.trim()) {
           resolve(null);
@@ -129,16 +126,7 @@ ipcMain.handle('extract-icon', async (event, filePath) => {
   });
 });
 
-const autoLauncher = new AutoLaunch({
-  name: 'DockLauncher',
-  path: app.getPath('exe')
-});
-
-app.whenReady().then(async () => {
+app.whenReady().then(() => {
   createWindow();
-  const isEnabled = await autoLauncher.isEnabled();
-  if (!isEnabled) {
-    autoLauncher.enable();
-  }
 });
 app.on('window-all-closed', () => app.quit());
