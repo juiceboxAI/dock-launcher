@@ -38,11 +38,8 @@ function renderCategories() {
     iconBtn.textContent = cat.icon;
     iconBtn.addEventListener('click', () => toggleCategory(index));
 
-    // Category hover label
-    const catTooltip = document.createElement('span');
-    catTooltip.className = 'category-tooltip';
-    catTooltip.textContent = cat.name;
-    iconBtn.appendChild(catTooltip);
+    // Category hover label — use native title (custom tooltip gets clipped by window bounds)
+    iconBtn.title = cat.name;
 
     const itemsContainer = document.createElement('div');
     itemsContainer.className = 'category-items';

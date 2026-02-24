@@ -53,6 +53,25 @@ h1 {
   font-size: 18px;
 }
 
+.category-header .move-btn {
+  background: none;
+  border: none;
+  color: rgba(149, 128, 255, 0.6);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 2px 4px;
+  line-height: 1;
+}
+
+.category-header .move-btn:hover:not(:disabled) {
+  color: #9580FF;
+}
+
+.category-header .move-btn:disabled {
+  color: rgba(255, 255, 255, 0.15);
+  cursor: default;
+}
+
 .category-header .delete-btn {
   background: none;
   border: none;

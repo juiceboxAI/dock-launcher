@@ -166,7 +166,7 @@ html, body {
 
 .tooltip {
   position: absolute;
-  top: calc(100% + 6px);
+  bottom: calc(100% + 6px);
   left: 50%;
   transform: translateX(-50%);
   background: rgba(15, 10, 25, 0.95);
@@ -187,33 +187,6 @@ html, body {
   opacity: 1;
 }
 
-/* Category name tooltip — left side so it doesn't collide with fan-out */
-.category-tooltip {
-  position: absolute;
-  right: calc(100% + 6px);
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(15, 10, 25, 0.95);
-  border: 1px solid rgba(123, 104, 238, 0.3);
-  border-radius: 4px;
-  padding: 4px 10px;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.9);
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.15s ease;
-  z-index: 100;
-  letter-spacing: 0.3px;
-}
-
-.category-icon {
-  position: relative;
-}
-
-.category-icon:hover .category-tooltip {
-  opacity: 1;
-}
 
 .category-items .shortcut-tile {
   opacity: 0;

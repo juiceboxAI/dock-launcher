@@ -34,6 +34,34 @@ function render() {
       debouncedSave();
     });
 
+    const moveUpBtn = document.createElement('button');
+    moveUpBtn.className = 'move-btn';
+    moveUpBtn.textContent = '\u25B2';
+    moveUpBtn.title = 'Move up';
+    moveUpBtn.disabled = catIndex === 0;
+    moveUpBtn.addEventListener('click', () => {
+      if (catIndex > 0) {
+        const cats = config.categories;
+        [cats[catIndex - 1], cats[catIndex]] = [cats[catIndex], cats[catIndex - 1]];
+        debouncedSave();
+        render();
+      }
+    });
+
+    const moveDownBtn = document.createElement('button');
+    moveDownBtn.className = 'move-btn';
+    moveDownBtn.textContent = '\u25BC';
+    moveDownBtn.title = 'Move down';
+    moveDownBtn.disabled = catIndex === config.categories.length - 1;
+    moveDownBtn.addEventListener('click', () => {
+      if (catIndex < config.categories.length - 1) {
+        const cats = config.categories;
+        [cats[catIndex], cats[catIndex + 1]] = [cats[catIndex + 1], cats[catIndex]];
+        debouncedSave();
+        render();
+      }
+    });
+
     const deleteBtn = document.createElement('button');
     deleteBtn.className = 'delete-btn';
     deleteBtn.textContent = '\u2715';
@@ -45,6 +73,8 @@ function render() {
 
     header.appendChild(iconInput);
     header.appendChild(nameInput);
+    header.appendChild(moveUpBtn);
+    header.appendChild(moveDownBtn);
     header.appendChild(deleteBtn);
     block.appendChild(header);
 
