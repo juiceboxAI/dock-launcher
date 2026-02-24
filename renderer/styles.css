@@ -50,12 +50,14 @@ html, body {
   flex-direction: column;
   gap: 2px;
   max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease-out;
+  overflow: visible;
+  clip-path: inset(0 0 100% 0);
+  transition: max-height 0.3s ease-out, clip-path 0.3s ease-out;
 }
 
 #categories.expanded {
   max-height: 500px;
+  clip-path: none;
 }
 
 .category-row {
@@ -114,8 +116,9 @@ html, body {
   flex-direction: row;
   gap: 4px;
   max-width: 0;
-  overflow: hidden;
-  transition: max-width 0.3s ease-out, opacity 0.2s ease;
+  overflow: visible;
+  clip-path: inset(0 100% 0 0);
+  transition: max-width 0.3s ease-out, opacity 0.2s ease, clip-path 0.3s ease-out;
   opacity: 0;
   align-items: center;
 }
@@ -123,6 +126,7 @@ html, body {
 .category-items.open {
   max-width: 600px;
   opacity: 1;
+  clip-path: none;
 }
 
 .shortcut-tile {
@@ -183,10 +187,10 @@ html, body {
   opacity: 1;
 }
 
-/* Category name tooltip */
+/* Category name tooltip — left side so it doesn't collide with fan-out */
 .category-tooltip {
   position: absolute;
-  left: calc(100% + 6px);
+  right: calc(100% + 6px);
   top: 50%;
   transform: translateY(-50%);
   background: rgba(15, 10, 25, 0.95);
