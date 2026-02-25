@@ -3,6 +3,7 @@ const { contextBridge, ipcRenderer } = require('electron');
 contextBridge.exposeInMainWorld('dock', {
   resizeWindow: (width, height) => ipcRenderer.send('resize-window', { width, height }),
   moveWindow: (x, y) => ipcRenderer.send('move-window', { x, y }),
+  setIgnoreMouse: (ignore, forward) => ipcRenderer.send('set-ignore-mouse', { ignore, forward }),
   launch: (command) => ipcRenderer.send('launch', command),
   loadConfig: () => ipcRenderer.invoke('load-config'),
   saveConfig: (config) => ipcRenderer.invoke('save-config', config),

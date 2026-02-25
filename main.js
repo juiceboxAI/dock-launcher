@@ -38,6 +38,13 @@ function createWindow() {
   mainWindow.setPosition(clampedX, clampedY);
 }
 
+// IPC: set mouse event passthrough for transparent areas
+ipcMain.on('set-ignore-mouse', (event, { ignore, forward }) => {
+  if (mainWindow) {
+    mainWindow.setIgnoreMouseEvents(ignore, { forward: forward || false });
+  }
+});
+
 // IPC: resize window from renderer
 ipcMain.on('resize-window', (event, { width, height }) => {
   if (mainWindow) {

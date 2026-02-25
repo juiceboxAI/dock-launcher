@@ -234,6 +234,26 @@ function setupDockIcon() {
 
 init();
 
+// Click-through on transparent areas — prevents dock from blocking apps underneath
+// Start ignoring with forward: true so CSS :hover still triggers on visible elements
+// When cursor enters a visible element, disable ignore so clicks register
+// When cursor leaves, re-enable ignore so transparent areas pass through
+window.dock.setIgnoreMouse(true, true);
+
+document.addEventListener('mouseover', (e) => {
+  const hit = e.target.closest('.dock-cell, .category-icon, .shortcut-tile, .category-items, .tooltip');
+  if (hit) {
+    window.dock.setIgnoreMouse(false, false);
+  }
+});
+
+document.addEventListener('mouseout', (e) => {
+  const next = e.relatedTarget;
+  if (!next || !next.closest('.dock-cell, .category-icon, .shortcut-tile, .category-items, .tooltip')) {
+    window.dock.setIgnoreMouse(true, true);
+  }
+});
+
 // Collapse dock when window loses focus (click outside)
 // Debounce to avoid race with resize-triggered blur events
 let blurTimeout = null;
